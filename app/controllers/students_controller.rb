@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
 	end
 
 	def show
-		@student = Student.find(params[:id])
+		
 	end
 
 	def new
@@ -16,7 +16,7 @@ class StudentsController < ApplicationController
 		@student = Student.new(student_params)
 		if @student.save
 			flash[:notice] = "You have successfully signed up"
-			redirect_to root_path
+			redirect_to @student
 
 		else
 			render 'new'
@@ -24,11 +24,11 @@ class StudentsController < ApplicationController
 	end
 
 	def edit
-		@student = Student.find(params[:id])
+		
 	end
 
 	def update
-		@student = Student.find(params[:id])
+	
 		if @student.update(student_params)
 			flash[:success] = "Student profile was updated"
 			redirect_to student_path(@student)
@@ -42,7 +42,7 @@ class StudentsController < ApplicationController
 	def destroy
 		@student.destroy
 		flash[:danger] = "Student profile was deleted"
-		redirect_to students_path
+		redirect_to student_path
 	end
 
 
@@ -53,7 +53,7 @@ class StudentsController < ApplicationController
 		@student = Student.find(params[:id])
 	end
 	def student_params
-	params.require(:student).permit(:name, :email)	
+	params.require(:student).permit(:name, :email, :password, :password_confirmation)	
 	end
 
 end
